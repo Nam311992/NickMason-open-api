@@ -1,20 +1,20 @@
-const url = 'https://gateway.marvel.com/v1/public/characters';
+const publicKey = '878be257365541995e2dea21bfc81eb6';
+const privateKey = '401b56ef60b3d8edb2b398ba3fdab906889c631e';
+const date = Date.now().toString();
+const hash = CryptoJS.MD5(date + privateKey + publicKey).toString()
+const url = `https://gateway.marvel.com/v1/public/characters?ts=${date}&apikey=${publicKey}&hash=${hash}`;
+
+
 
 fetch(url)
-  .then(response => {
-    if(response.status)
-      throw new Error('Network response was not ok ' + response.statusText);
-      
+  .then (function (response){
+    return response.json();
   })
 
-  .then(data => {
+  .then (function(data){
     console.log(data);
+  })
 
-  const characters = data.data.results;
-  characters.forEach(character => {
-    console.log(character.name)
-  });
-})
   .catch(error => {
     console.error('There was a problem with the fetch operation', error);
   });
