@@ -3,10 +3,10 @@ const privateKey = '401b56ef60b3d8edb2b398ba3fdab906889c631e';
 const date = Date.now().toString();
 const hash = CryptoJS.MD5(date + privateKey + publicKey).toString()
 const url = `https://gateway.marvel.com/v1/public/characters?ts=${date}&apikey=${publicKey}&hash=${hash}`;
-const fetchMe = fetch(url);
 
 
-fetchMe
+
+fetch(url)
   .then (response =>{
     return response.json();
   })
@@ -14,7 +14,6 @@ fetchMe
   .then (data =>{
     console.log(data);
   })
-
   .catch(error => {
     console.error('There was a problem with the fetch operation', error);
   });
@@ -55,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fetchData(`https://gateway.marvel.com/v1/public/characters?ts=${date}&apikey=${publicKey}&hash=${hash}`, dataPoint2Content); // Replace with your URL
   });
 
+  
   // Optionally, load the first data point on page load
   dataPoint1Link.click();
 });
